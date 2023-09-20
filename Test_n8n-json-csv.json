@@ -1,0 +1,151 @@
+{
+  "name": "Import JSON data into Google Sheets and CSV file",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "f615c250-3bb9-4885-8d5d-4070322e882e",
+      "name": "When clicking \"Execute Workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        200,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "url": "http://xmlcalendar.ru/data/ru/2022/calendar.json",
+        "options": {}
+      },
+      "name": "HTTP Request1",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        380,
+        360
+      ],
+      "typeVersion": 2,
+      "id": "fa1c1e63-2b50-4d1d-be15-df580010aa9a"
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "data",
+              "value": "=\"Год/Месяц\",\"Январь\",\"Февраль\",\"Март\",\"Апрель\",\"Май\",\"Июнь\",\"Июль\",\"Август\",\"Сентябрь\",\"Октябрь\",\"Ноябрь\",\"Декабрь\",\"Всего рабочих дней\",\"Всего праздничных и выходных дней\",\"Количество рабочих часов при 40-часовой рабочей неделе\",\"Количество рабочих часов при 36-часовой рабочей неделе\",\"Количество рабочих часов при 24-часовой рабочей неделе\" \n{{ $json.year }},\"{{ $json.months[0].days }}\",\"{{ $json.months[1].days }}\",\"{{ $json.months[2].days }}\",\"{{ $json.months[3].days }}\",\"{{ $json.months[4].days }}\",\"{{ $json.months[5].days }}\",\"{{ $json.months[6].days }}\",\"{{ $json.months[7].days }}\",\"{{ $json.months[8].days }}\",\"{{ $json.months[9].days }}\",\"{{ $json.months[10].days }}\",\"{{ $json.months[11].days }}\",{{ $json.statistic.workdays }},{{ $json.statistic.holidays }},{{ $json.statistic.hours40 }},{{ $json.statistic.hours36 }},{{ $json.statistic.hours24 }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Set1",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        560,
+        360
+      ],
+      "typeVersion": 1,
+      "id": "b4da1640-37a5-4527-be70-f988dfb8ffee"
+    },
+    {
+      "parameters": {
+        "url": "http://xmlcalendar.ru/data/ru/2022/calendar.csv",
+        "options": {}
+      },
+      "id": "64d5ff7e-6e61-4a63-8dd9-d0f21cf00063",
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        380,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "mergeByFields": {
+          "values": [
+            {
+              "field1": "data",
+              "field2": "data"
+            }
+          ]
+        },
+        "options": {
+          "disableDotNotation": false
+        }
+      },
+      "id": "ea3c1248-0484-486d-9f43-6fc8e2294048",
+      "name": "Compare Datasets",
+      "type": "n8n-nodes-base.compareDatasets",
+      "typeVersion": 2.3,
+      "position": [
+        800,
+        240
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking \"Execute Workflow\"": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Set1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set1": {
+      "main": [
+        [
+          {
+            "node": "Compare Datasets",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Compare Datasets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "e82459ad-b1b9-4964-b612-005231b905ff",
+  "id": "SBgMYqubb1cPRsA8",
+  "meta": {
+    "instanceId": "7b1f46b07d40fad8f14c4662c5b6ebc8b343318547aa469c6b4c930e736f7763"
+  },
+  "tags": []
+}
