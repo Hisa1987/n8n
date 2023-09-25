@@ -1,0 +1,421 @@
+{
+  "name": "Test-n8n",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "db0953b7-41e4-41ca-b55f-d58ed5f21f5f",
+      "name": "When clicking \"Execute Workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        600,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "url": "http://xmlcalendar.ru/data/ru/2022/calendar.csv",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "id": "da656890-463b-4931-82f4-36c743be1f11",
+      "name": "HTTP Request CSV",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        860,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "url": "http://xmlcalendar.ru/data/ru/2022/calendar.json",
+        "options": {}
+      },
+      "id": "329dcc17-5036-4fa6-acfc-bb29790a7016",
+      "name": "HTTP Request JSON",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        860,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "fileFormat": "xlsx",
+        "options": {}
+      },
+      "id": "22847a66-0c47-4178-a608-e2d0301bae00",
+      "name": "Spreadsheet File1",
+      "type": "n8n-nodes-base.spreadsheetFile",
+      "typeVersion": 2,
+      "position": [
+        1080,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "year",
+              "value": "={{ $json[\"ÐÐ¾Ð´/ÐÐµÑÑÑ\"] }}"
+            },
+            {
+              "name": "=month 1",
+              "value": "={{ $json[\"Ð¯Ð½Ð²Ð°ÑÑ\"] }}"
+            },
+            {
+              "name": "month 2",
+              "value": "={{ $json[\"Ð¤ÐµÐ²ÑÐ°Ð»Ñ\"] }}"
+            },
+            {
+              "name": "month 3",
+              "value": "={{ $json[\"ÐÐ°ÑÑ\"] }}"
+            },
+            {
+              "name": "month 4",
+              "value": "={{ $json[\"ÐÐ¿ÑÐµÐ»Ñ\"] }}"
+            },
+            {
+              "name": "month 5",
+              "value": "={{ $json[\"ÐÐ°Ð¹\"] }}"
+            },
+            {
+              "name": "month 6",
+              "value": "={{ $json[\"ÐÑÐ½Ñ\"] }}"
+            },
+            {
+              "name": "month 7",
+              "value": "={{ $json[\"ÐÑÐ»Ñ\"] }}"
+            },
+            {
+              "name": "month 8",
+              "value": "={{ $json[\"ÐÐ²Ð³ÑÑÑ\"] }}"
+            },
+            {
+              "name": "month 9",
+              "value": "={{ $json[\"Ð¡ÐµÐ½ÑÑÐ±ÑÑ\"] }}"
+            },
+            {
+              "name": "month 10",
+              "value": "={{ $json[\"ÐÐºÑÑÐ±ÑÑ\"] }}"
+            },
+            {
+              "name": "month 11",
+              "value": "={{ $json[\"ÐÐ¾ÑÐ±ÑÑ\"] }}"
+            },
+            {
+              "name": "month 12",
+              "value": "={{ $json[\"ÐÐµÐºÐ°Ð±ÑÑ\"] }}"
+            },
+            {
+              "name": "workdays",
+              "value": "={{ $json[\"ÐÑÐµÐ³Ð¾ ÑÐ°Ð±Ð¾ÑÐ¸Ñ Ð´Ð½ÐµÐ¹\"] }}"
+            },
+            {
+              "name": "holidays",
+              "value": "={{ $json[\"ÐÑÐµÐ³Ð¾ Ð¿ÑÐ°Ð·Ð´Ð½Ð¸ÑÐ½ÑÑ Ð¸ Ð²ÑÑÐ¾Ð´Ð½ÑÑ Ð´Ð½ÐµÐ¹\"] }}"
+            },
+            {
+              "name": "hours40",
+              "value": "={{ $json[\"ÐÐ¾Ð»Ð¸ÑÐµÑÑÐ²Ð¾ ÑÐ°Ð±Ð¾ÑÐ¸Ñ ÑÐ°ÑÐ¾Ð² Ð¿ÑÐ¸ 40-ÑÐ°ÑÐ¾Ð²Ð¾Ð¹ ÑÐ°Ð±Ð¾ÑÐµÐ¹ Ð½ÐµÐ´ÐµÐ»Ðµ\"] }}"
+            },
+            {
+              "name": "hours36",
+              "value": "={{ $json[\"ÐÐ¾Ð»Ð¸ÑÐµÑÑÐ²Ð¾ ÑÐ°Ð±Ð¾ÑÐ¸Ñ ÑÐ°ÑÐ¾Ð² Ð¿ÑÐ¸ 36-ÑÐ°ÑÐ¾Ð²Ð¾Ð¹ ÑÐ°Ð±Ð¾ÑÐµÐ¹ Ð½ÐµÐ´ÐµÐ»Ðµ\"] }}"
+            },
+            {
+              "name": "hours24",
+              "value": "={{ $json[\"ÐÐ¾Ð»Ð¸ÑÐµÑÑÐ²Ð¾ ÑÐ°Ð±Ð¾ÑÐ¸Ñ ÑÐ°ÑÐ¾Ð² Ð¿ÑÐ¸ 24-ÑÐ°ÑÐ¾Ð²Ð¾Ð¹ ÑÐ°Ð±Ð¾ÑÐµÐ¹ Ð½ÐµÐ´ÐµÐ»Ðµ\"] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "959fca04-1e32-4a53-8c47-b74ec2cf6c4d",
+      "name": "Set",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        1280,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "mergeByFields": {
+          "values": [
+            {
+              "field1": "year",
+              "field2": "year"
+            },
+            {
+              "field1": "['month 1']",
+              "field2": "['month 1']"
+            },
+            {
+              "field1": "['month 2']",
+              "field2": "['month 2']"
+            },
+            {
+              "field1": "['month 3']",
+              "field2": "['month 3']"
+            },
+            {
+              "field1": "['month 4']",
+              "field2": "['month 4']"
+            },
+            {
+              "field1": "['month 5']",
+              "field2": "['month 5']"
+            },
+            {
+              "field1": "['month 6']",
+              "field2": "['month 6']"
+            },
+            {
+              "field1": "['month 7']",
+              "field2": "['month 7']"
+            },
+            {
+              "field1": "['month 8']",
+              "field2": "['month 8']"
+            },
+            {
+              "field1": "['month 9']",
+              "field2": "['month 9']"
+            },
+            {
+              "field1": "['month 10']",
+              "field2": "['month 10']"
+            },
+            {
+              "field1": "['month 11']",
+              "field2": "['month 11']"
+            },
+            {
+              "field1": "['month 12']",
+              "field2": "['month 12']"
+            },
+            {
+              "field1": "workdays",
+              "field2": "workdays"
+            },
+            {
+              "field1": "holidays",
+              "field2": "holidays"
+            },
+            {
+              "field1": "hours40",
+              "field2": "hours40"
+            },
+            {
+              "field1": "hours36",
+              "field2": "hours36"
+            },
+            {
+              "field1": "hours24",
+              "field2": "hours24"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "56fa3938-b1b8-489a-a08d-dc5a275ffc3e",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        1560,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "year",
+              "value": "={{ $json.year }}"
+            },
+            {
+              "name": "=month 1",
+              "value": "={{ $json.months[0].days }}"
+            },
+            {
+              "name": "month 2",
+              "value": "={{ $json.months[1].days }}"
+            },
+            {
+              "name": "month 3",
+              "value": "={{ $json.months[2].days }}"
+            },
+            {
+              "name": "month 4",
+              "value": "={{ $json.months[3].days }}"
+            },
+            {
+              "name": "month 5",
+              "value": "={{ $json.months[4].days }}"
+            },
+            {
+              "name": "month 6",
+              "value": "={{ $json.months[5].days }}"
+            },
+            {
+              "name": "month 7",
+              "value": "={{ $json.months[6].days }}"
+            },
+            {
+              "name": "month 8",
+              "value": "={{ $json.months[7].days }}"
+            },
+            {
+              "name": "month 9",
+              "value": "={{ $json.months[8].days }}"
+            },
+            {
+              "name": "month 10",
+              "value": "={{ $json.months[9].days }}"
+            },
+            {
+              "name": "month 11",
+              "value": "={{ $json.months[10].days }}"
+            },
+            {
+              "name": "month 12",
+              "value": "={{ $json.months[11].days }}"
+            },
+            {
+              "name": "workdays",
+              "value": "={{ $json.statistic.workdays }}"
+            },
+            {
+              "name": "holidays",
+              "value": "={{ $json.statistic.holidays }}"
+            },
+            {
+              "name": "hours40",
+              "value": "={{ $json.statistic.hours40 }}"
+            },
+            {
+              "name": "hours36",
+              "value": "={{ $json.statistic.hours36 }}"
+            },
+            {
+              "name": "hours24",
+              "value": "={{ $json.statistic.hours24 }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6e957f80-b1c4-4154-817a-a9e19e5d9dec",
+      "name": "Set1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        1280,
+        380
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking \"Execute Workflow\"": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request JSON",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Request CSV",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request CSV": {
+      "main": [
+        [
+          {
+            "node": "Spreadsheet File1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Spreadsheet File1": {
+      "main": [
+        [
+          {
+            "node": "Set",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request JSON": {
+      "main": [
+        [
+          {
+            "node": "Set1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Europe/Moscow",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "b3c3cb1c-e619-48ca-8519-7b3aa70d3e85",
+  "id": "IE3Yj4oCXkNph9MN",
+  "meta": {
+    "instanceId": "7b1f46b07d40fad8f14c4662c5b6ebc8b343318547aa469c6b4c930e736f7763"
+  },
+  "tags": []
+}
